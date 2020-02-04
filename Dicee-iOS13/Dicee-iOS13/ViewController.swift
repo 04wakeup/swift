@@ -15,20 +15,16 @@ class ViewController: UIViewController {
     
     var leftDiceNumber = 1
     var rightDiceNumber = 5
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-       
-    }
+     
     @IBAction func rollButtonPressed(_ sender: UIButton) {
-        diceImageView1.image = [ #imageLiteral(resourceName: "DiceOne"), #imageLiteral(resourceName: "DiceTwo"), #imageLiteral(resourceName: "DiceThree"), #imageLiteral(resourceName: "DiceFour"), #imageLiteral(resourceName: "DiceFive"), #imageLiteral(resourceName: "DiceSix") ][leftDiceNumber]
-        diceImageView2.image = [ #imageLiteral(resourceName: "DiceOne"), #imageLiteral(resourceName: "DiceTwo"), #imageLiteral(resourceName: "DiceThree"), #imageLiteral(resourceName: "DiceFour"), #imageLiteral(resourceName: "DiceFive"), #imageLiteral(resourceName: "DiceSix") ][rightDiceNumber]
-        leftDiceNumber = (leftDiceNumber + 1) % 6
-        rightDiceNumber = (rightDiceNumber - 1) % 6
-        if (rightDiceNumber < 0){
-            rightDiceNumber = 5
-        }
-        print("the current value is \(leftDiceNumber).")
+        
+        let diceArray = [ #imageLiteral(resourceName: "DiceOne"), #imageLiteral(resourceName: "DiceTwo"), #imageLiteral(resourceName: "DiceThree"), #imageLiteral(resourceName: "DiceFour"), #imageLiteral(resourceName: "DiceFive"), #imageLiteral(resourceName: "DiceSix") ]
+        var score = 0
+        
+        diceImageView1.image = diceArray.randomElement()
+        diceImageView2.image = diceArray[Int.random(in: 0...5)]
+         
+         
     }
     
 
