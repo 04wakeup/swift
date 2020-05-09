@@ -22,8 +22,6 @@ class ViewController: UIViewController {
     
     var quizBrain = QuizBrain()
  
-    
-    
     var questionTotalCount: Float = 0
     
     override func viewDidLoad() {
@@ -52,9 +50,9 @@ class ViewController: UIViewController {
     @objc func updateUI() {
         questionLabel.text = quizBrain.getQuestionText()
         progressBar.progress = quizBrain.getProgress()
-        oneButton.titleLabel?.text = quizBrain.getAnswerText(position: 0)
-        twoButton.titleLabel?.text = quizBrain.getAnswerText(position: 1)
-        threeButton.titleLabel?.text = quizBrain.getAnswerText(position: 2)
+        oneButton.setTitle(quizBrain.getAnswerText(position: 0), for: .normal)
+        twoButton.setTitle(quizBrain.getAnswerText(position: 1), for: .normal)
+        threeButton.setTitle(quizBrain.getAnswerText(position: 2), for: .normal)
         scoreLevel.text = "Score: \(quizBrain.getScore())"
         oneButton.backgroundColor = UIColor.clear
         twoButton.backgroundColor = UIColor.clear

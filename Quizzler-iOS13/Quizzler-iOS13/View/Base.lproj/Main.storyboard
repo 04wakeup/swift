@@ -107,6 +107,7 @@
                         <outlet property="oneButton" destination="oVw-Hl-IRe" id="qzV-mq-tGQ"/>
                         <outlet property="progressBar" destination="TXm-qh-7Xg" id="1rp-j2-KFF"/>
                         <outlet property="questionLabel" destination="rSI-li-mhO" id="Mlh-Nd-c1Z"/>
+                        <outlet property="scoreLevel" destination="dgX-lD-o9H" id="RD7-Mh-fSg"/>
                         <outlet property="threeButton" destination="2xQ-mb-HBT" id="PpT-8y-SwX"/>
                         <outlet property="twoButton" destination="tbn-vQ-GyC" id="EhL-JM-CNa"/>
                     </connections>
