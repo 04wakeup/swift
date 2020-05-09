@@ -47,12 +47,37 @@
 
 
 //Don't change this
-var studentsAndScores = ["Amy": 1, "James": 2, "Helen": 3]
+//var studentsAndScores = ["Amy": 10, "James": 2, "Helen": 3]
+//
+//func highestScore(scores: [String: Int]) {
+//
+//  //Write your code here.
+//    print( studentsAndScores.max {a, b in a.value < b.value })
+//}
+//
+//highestScore(scores: studentsAndScores)
 
-func highestScore(scores: [String: Int]) {
-  
-  //Write your code here.
-    print( studentsAndScores.max {a, b in a.value < b.value })
+
+// Struct
+struct Town {
+    let name : String
+    var citizens : [String]
+    var resources: [String: Int]
+    
+    init(townName: String, people: [String], stats:[String:Int]){
+        self.name = townName
+        self.citizens = people
+        self.resources = stats
+    }
+    func fortify(){
+        print("Defences increased!")
+    }
 }
  
-highestScore(scores: studentsAndScores)
+var anotherTown = Town(townName: "Namesless Island", people: ["Tom Hanks"], stats: ["Coconuts": 100])
+anotherTown.citizens.append("Wilson")
+print(anotherTown.citizens)
+ 
+var ghostTown = Town(townName: "Ghost", people: [], stats: ["Tunbleweed": 1])
+ghostTown.citizens.append("ghost only")
+print(ghostTown.citizens)
