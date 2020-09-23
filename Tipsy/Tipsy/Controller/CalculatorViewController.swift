@@ -21,35 +21,31 @@ class CalculatorViewController: UIViewController {
     
     @IBAction func tipChanged(_ sender: UIButton) {
         
-        if(sender.currentTitle == "0%"){
-            zeroPctButton.isSelected = true
-            tenPctButton.isSelected = false
-            twentyPctButton.isSelected = false
-            
-        }else if (sender.currentTitle == "10%"){
-            zeroPctButton.isSelected = false
-            tenPctButton.isSelected = true
-            twentyPctButton.isSelected = false
-            tipPct = 10
-        }else {
-            zeroPctButton.isSelected = false
-            tenPctButton.isSelected = false
-            twentyPctButton.isSelected = true
-            tipPct = 20
-        }
+//                if(sender.currentTitle == "0%"){
+//
+//                }else if (sender.currentTitle == "10%"){
+//                    tipPct = 10
+//                }else {
+//                    tipPct = 20
+//                }
+        zeroPctButton.isSelected = false  // set the current selected true(refactroed)
+        tenPctButton.isSelected = false
+        twentyPctButton.isSelected = false
+        sender.isSelected = true
+        tipPct = Float(String(sender.currentTitle!.dropLast()))!
         billTextField.endEditing(true)  // dismiss the keyboard
     }
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
-        splitNumberLabel.text = String(Int(stepperValue.value))
-         
+        splitNumberLabel.text = String(format: "%.0f", stepperValue.value)  // or sender.value
+        
     }
-   
+    
     @IBAction func calculatePressed(_ sender: UIButton) {
-         
+        
         let finalSplitNum = Float(splitNumberLabel.text ?? "0.0")!
         let finalBillAmount = Float(billTextField.text ?? "0.0") ?? 0.0  // ??? why do we need put more nil handling at the last part???
-//        let finalAmount = finalBillAmount * (1 + tipPct) / finalSplitNum
+        //        let finalAmount = finalBillAmount * (1 + tipPct) / finalSplitNum
         
         calculateBrain.calculateAmount(finalBillAmount: finalBillAmount, tipPct: tipPct, finalSplitNum: finalSplitNum)
         self.performSegue(withIdentifier: "goToResult", sender: self)
@@ -63,6 +59,6 @@ class CalculatorViewController: UIViewController {
         }
     }
     
-
+    
 }
 

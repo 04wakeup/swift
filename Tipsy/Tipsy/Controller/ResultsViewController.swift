@@ -17,7 +17,7 @@ class ResultsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        totalLabel.text = String(finalAmount ?? 0.0)
+        totalLabel.text = String(format: "%.2f", finalAmount ?? 0.0)
         settingsLabel.text = finalMessage
     }
     
