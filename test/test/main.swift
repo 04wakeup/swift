@@ -8,4 +8,9 @@
 
 import Foundation
 
-print( Float(nil ?? "0.0")   )
+func calculator(n1: Int, n2: Int) -> Int {
+    return n1 + n2
+}
+
+calculator(n1: 1, n2: 2)
+
