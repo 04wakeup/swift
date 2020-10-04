@@ -1,27 +1,28 @@
  
-import Foundation
-
- protocol RateManagerDelegate {
-    func didUpdateRate(_ coinManager: CoinManager, rate: RateModel)
+ import Foundation
+ 
+ protocol CoinManagerDelegate {
+//    func didUpdateRate(_ coinManager: CoinManager, rate: RateModel)
+    func didUpdatePrice(price: String, currency: String)
     func didFailWithError(error: Error)
  }
  
  
-struct CoinManager {
-    
+ struct CoinManager {
+    var delegate:CoinManagerDelegate?
     let baseURL = "https://rest.coinapi.io/v1/exchangerate/BTC"
     let apiKey = "1095E2E6-8C8E-4583-9093-7DFC8F1943DC"
     //  ttps://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=1095E2E6-8C8E-4583-9093-7DFC8F1943DC
     
     let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
-    var delegate:RateManagerDelegate?
+    
     
     func getCoinPrice(for currency: String){
         let urlString = "\(baseURL)/\(currency)?apikey=\(apiKey)"
-        performRequest(with: urlString)
+        performRequest(with: urlString, for: currency)
     }
     
-    func performRequest(with path: String){
+    func performRequest(with path: String, for currency: String){
         let urlString = path
         if let url = URL(string: urlString){  // validate url path
             let session = URLSession(configuration: .default)  // create a session
@@ -31,8 +32,10 @@ struct CoinManager {
                     return
                 }
                 if let safeData = data{
-                     var backToString = String(data: safeData, encoding: String.Encoding.utf8) as String?  // convert to String
-                     print(backToString)
+                    if let rate = self.parseJSON(safeData){
+                        let priceString = String(format: "%.2f", rate.rate)
+                        self.delegate?.didUpdatePrice(price: priceString, currency: currency)
+                    }
                 }
             }
             task.resume()  // resume the receiving
@@ -44,16 +47,15 @@ struct CoinManager {
         do{
             let decodedData = try decoder.decode(RateData.self, from: rateData)
             let rate = decodedData.rate
+            let base = decodedData.asset_id_base
+            let currency = decodedData.asset_id_quote
             let time = decodedData.time
-            let currency = decodedData.currency
-            let base = decodedData.base
-            
-            let rateModel = RateModel(time: time, base: base, currency: currency, rate: rate)
-            print(rateModel.rate)
-            return rateModel
+            return RateModel(time: time, base: base, currency: currency, rate: rate)
         }catch{
             delegate?.didFailWithError(error: error)
             return nil
         }
     }
-}
+     
+    
+ }

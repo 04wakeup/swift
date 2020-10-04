@@ -14,7 +14,7 @@ struct RateModel{
     let currency: String
     let rate: Double
     
-    var currencyString: String{
+    var rateString: String{
         return String(format: ".2f", rate)
     }
 }
